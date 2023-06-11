@@ -33,7 +33,7 @@ const Post = ({
   const [isCommentsLoading, setIsCommentsLoading] = useState<boolean>(false)
 
   // useless event providing is required by react pattern callback syntax
-  const expandComments = async (
+  const setCommentsCollection = async (
     _event?: React.MouseEvent<HTMLDivElement>,
     explicityKids?: Array<number>,
   ) => {
@@ -47,7 +47,7 @@ const Post = ({
 
   const refetchComments = async () => {
     const refetchedPost = await getItemById(id)
-    expandComments(undefined, refetchedPost.kids as Array<number>)
+    setCommentsCollection(undefined, refetchedPost.kids as Array<number>)
   }
 
   useEffect(() => {
@@ -111,14 +111,14 @@ const Post = ({
                   >
                     <Stack
                       spacing={2}
-                      direction="row"
+                      direction={isMobile ? 'column' : 'row'}
                       justifyContent={isMobile ? 'center' : 'flex-start'}
                     >
                       <Chip label={`Type: ${type}`} variant="outlined" />
                       <Chip
                         label={`Comments: ${descendants}`}
                         variant="outlined"
-                        onClick={expandComments}
+                        onClick={setCommentsCollection}
                       />
                       {comments && (
                         <Chip

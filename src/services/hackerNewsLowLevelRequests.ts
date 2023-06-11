@@ -1,6 +1,7 @@
 import { RequestMethods } from '../constants'
 import { Item } from '../types'
 import { fetchRequest } from './requester'
+import { deleteWrongWords } from './validators'
 
 const apiUrlBase = '/api'
 const topStories = '/topstories.json'
@@ -11,7 +12,10 @@ export const getTopStories = () =>
     method: RequestMethods.get,
   })
 
-export const getItemById = (id: number) =>
-  fetchRequest<Item>(`${apiUrlBase}${getItem(id)}`, {
+export const getItemById = async (id: number) => {
+  const item = await fetchRequest<Item>(`${apiUrlBase}${getItem(id)}`, {
     method: RequestMethods.get,
   })
+  item.text && (item.text = deleteWrongWords(item.text))
+  return item
+}

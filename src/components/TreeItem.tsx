@@ -12,8 +12,8 @@ type TreeItemProps = {
   label: string
   kids: CommentsLevel
   onContextMenu?: (event: Event) => void
-  by: string
-  time: number
+  by?: string
+  time?: number
 }
 
 export const TreeItem: React.FC<TreeItemProps> = ({

@@ -1,9 +1,9 @@
 import { Button, Typography } from '@mui/material'
 
 type CommentProps = {
-  time: number
+  time?: number
   label: string
-  by: string
+  by?: string
   selected: boolean
   onClickReply: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
