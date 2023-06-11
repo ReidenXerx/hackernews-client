@@ -12,8 +12,10 @@ Perform mouse click on particular comment's reply button for changing it for rep
 # Responsive design
 ## Desktop 
 <img width="1045" alt="image" src="https://github.com/ReidenXerx/hackernews-client/assets/34869259/00d97bc5-1b74-4627-8af6-f1272828c73b">
+
 ## Tablet
 <img width="506" alt="image" src="https://github.com/ReidenXerx/hackernews-client/assets/34869259/26f3fbac-5997-4454-8459-decb97141e08">
+
 ## Smartphone
 <img width="406" alt="image" src="https://github.com/ReidenXerx/hackernews-client/assets/34869259/37e0de1d-4542-4384-bf9a-6559e8044b42">
 
