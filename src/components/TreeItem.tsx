@@ -24,10 +24,12 @@ export const TreeItem: React.FC<TreeItemProps> = ({
   kids,
 }) => {
   const [comments, setComments] = useState<CommentsLevel | undefined>(kids)
-  const { updatePasteComment, expandedTreeItems } = useCustomContext()
+  const { updatePasteComment, expandedTreeItems, selectedTreeItems } =
+    useCustomContext()
 
-  const handleContextMenu = (event: React.MouseEvent<HTMLDivElement>) => {
+  const onClickReply = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
+    event.stopPropagation()
     updatePasteComment?.((comment: Item) => {
       setComments({ ...comments, [comment.id]: comment })
     })
@@ -42,7 +44,8 @@ export const TreeItem: React.FC<TreeItemProps> = ({
           by={by}
           time={time}
           label={label}
-          onContextMenu={handleContextMenu}
+          selected={!!selectedTreeItems?.includes(nodeId)}
+          onClickReply={onClickReply}
         />
       }
       nodeId={nodeId}

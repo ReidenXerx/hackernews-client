@@ -1,15 +1,16 @@
-import { Typography } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 
 type CommentProps = {
   time: number
   label: string
   by: string
-  onContextMenu: (event: React.MouseEvent<HTMLDivElement>) => void
+  selected: boolean
+  onClickReply: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-const Comment = ({ time, by, onContextMenu, label }: CommentProps) => {
+const Comment = ({ time, by, onClickReply, label, selected }: CommentProps) => {
   return (
-    <Typography onContextMenu={onContextMenu} variant="body2" align="left">
+    <Typography variant="body2" align="left">
       {time && (
         <Typography variant="caption">
           {new Date(time * 1000).toDateString()}
@@ -22,6 +23,7 @@ const Comment = ({ time, by, onContextMenu, label }: CommentProps) => {
         </Typography>
       )}
       {label}
+      {selected && <Button onClick={onClickReply}>Reply</Button>}
     </Typography>
   )
 }
