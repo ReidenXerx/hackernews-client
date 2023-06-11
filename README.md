@@ -26,7 +26,9 @@ Vite it's really cool replacement for old one webpack. It can create proxy serve
 3. Suggestion of MUI components in particular cases.
 
 # Known issues
-<img width="440" alt="image" src="https://github.com/ReidenXerx/hackernews-client/assets/34869259/c8284d8c-8b1c-4434-90b1-228d5ba3db29">
+1. <img width="440" alt="image" src="https://github.com/ReidenXerx/hackernews-client/assets/34869259/c8284d8c-8b1c-4434-90b1-228d5ba3db29">
 
 react for some reasons think there is missing key but actually it is not as you can see on the screen
+
+2. HackerNews comments include specific html elements which inserted on their website. So there should be validator which clean text. I implemented very basic validator because advanced validator in this project will be overhead. Also i didn't use dangerouslySetInnerHTML because it's bad practice for safety reasons.
 
