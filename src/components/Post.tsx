@@ -13,12 +13,12 @@ import {
 } from '@mui/material'
 import Rating from '@mui/lab/Rating'
 import { CommentsLevel, Item } from '../types'
-import { placeholderImageUrl } from '../constants'
 import CustomTreeView from './TreeView'
 import { useEffect, useState } from 'react'
 import { getCommentTree } from '../services/hackerNewsHighLevelRequests'
 import CommentForm from './CommentForm'
 import { getItemById } from '../services/hackerNewsLowLevelRequests'
+import gungThePug from '../assets/gung.jpg'
 
 type PostProps = {
   post: Item
@@ -57,12 +57,12 @@ const Post = ({ post }: PostProps) => {
   return (
     <Stack direction={'column'}>
       <Grid item xs={12} sm={6} md={4} marginY={'20px'}>
-        <Card elevation={2}>
+        <Card elevation={5}>
           <Grid container>
             <Grid item xs={12} md={6}>
               <CardMedia
                 component="img"
-                image={post.imageUrl || placeholderImageUrl}
+                image={post.imageUrl || gungThePug}
                 alt={post.title}
               />
             </Grid>

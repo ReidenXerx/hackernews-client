@@ -13,4 +13,4 @@ export enum RequestMethods {
   delete = 'DELETE',
 }
 
-export const placeholderImageUrl = 'https://picsum.photos/200'
+export const placeholderImageUrl = './assets/gung.jpeg'

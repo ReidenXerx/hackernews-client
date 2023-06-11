@@ -19,7 +19,7 @@ const CommentForm: React.FC = () => {
       descendants: 0,
       parts: [],
       score: 5,
-      time: Date.now(),
+      time: Date.now() / 1000,
       title: comment,
       type: ItemTypes.comment,
     })
