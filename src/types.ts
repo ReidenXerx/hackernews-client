@@ -15,6 +15,5 @@ export type Item = {
   time: number
   title: string
   type: ItemTypes
-  imageUrl?: string
   url?: string
 }

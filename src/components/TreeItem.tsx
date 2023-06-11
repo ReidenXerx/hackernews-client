@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import MuiTreeItem from '@mui/lab/TreeItem'
 import { CommentsLevel, Item } from '../types'
-import { Typography } from '@mui/material'
 import React from 'react'
 import { useCustomContext } from '../hooks/useCustomContext'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import Comment from './Comment'
 
 type TreeItemProps = {
   nodeId: string
@@ -38,24 +38,12 @@ export const TreeItem: React.FC<TreeItemProps> = ({
       expandIcon={comments ? <ExpandMoreIcon /> : <></>}
       collapseIcon={comments ? <ChevronRightIcon /> : <></>}
       label={
-        <Typography
+        <Comment
+          by={by}
+          time={time}
+          label={label}
           onContextMenu={handleContextMenu}
-          variant="body2"
-          align="left"
-        >
-          {time && (
-            <Typography variant="caption">
-              {new Date(time * 1000).toDateString()}
-            </Typography>
-          )}
-          {by && (
-            <Typography variant="body2" fontWeight={800}>
-              {' '}
-              {by}:
-            </Typography>
-          )}
-          {label}
-        </Typography>
+        />
       }
       nodeId={nodeId}
       key={nodeId}
@@ -69,26 +57,26 @@ export const TreeItem: React.FC<TreeItemProps> = ({
       {!!comments &&
         Object.entries<Item>(comments)
           .slice(0, 1)
-          .map(([id, comment]) => (
+          .map(([id, { text, kids, by, time }]) => (
             <TreeItem
               nodeId={id}
-              label={comment.text}
-              kids={comment.kids as CommentsLevel}
-              by={comment.by}
-              time={comment.time}
+              label={text}
+              kids={kids as CommentsLevel}
+              by={by}
+              time={time}
             />
           ))}
       {!!comments &&
         expandedTreeItems?.includes(nodeId) &&
         Object.entries<Item>(comments)
           .slice(1)
-          .map(([id, comment]) => (
+          .map(([id, { text, kids, by, time }]) => (
             <TreeItem
               nodeId={id}
-              label={comment.text}
-              kids={comment.kids as CommentsLevel}
-              by={comment.by}
-              time={comment.time}
+              label={text}
+              kids={kids as CommentsLevel}
+              by={by}
+              time={time}
             />
           ))}
     </MuiTreeItem>

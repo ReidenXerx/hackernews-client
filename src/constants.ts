@@ -12,5 +12,3 @@ export enum RequestMethods {
   put = 'PUT',
   delete = 'DELETE',
 }
-
-export const placeholderImageUrl = './assets/gung.jpeg'

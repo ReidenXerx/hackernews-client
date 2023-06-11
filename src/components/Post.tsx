@@ -24,7 +24,9 @@ type PostProps = {
   post: Item
 }
 
-const Post = ({ post }: PostProps) => {
+const Post = ({
+  post: { id, kids, title, text, url, type, descendants, score, time, by },
+}: PostProps) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const [comments, setComments] = useState<CommentsLevel>()
@@ -38,13 +40,13 @@ const Post = ({ post }: PostProps) => {
     setIsCommentsLoading(true)
     setComments(
       (await getCommentTree(
-        explicityKids ?? (post.kids as Array<number>),
+        explicityKids ?? (kids as Array<number>),
       )) as CommentsLevel,
     )
   }
 
   const refetchComments = async () => {
-    const refetchedPost = await getItemById(post.id)
+    const refetchedPost = await getItemById(id)
     expandComments(undefined, refetchedPost.kids as Array<number>)
   }
 
@@ -60,11 +62,7 @@ const Post = ({ post }: PostProps) => {
         <Card elevation={5}>
           <Grid container>
             <Grid item xs={12} md={6}>
-              <CardMedia
-                component="img"
-                image={post.imageUrl || gungThePug}
-                alt={post.title}
-              />
+              <CardMedia component="img" image={gungThePug} alt={title} />
             </Grid>
             <Grid container item xs={12} md={6}>
               <CardContent sx={{ width: '100%' }}>
@@ -81,28 +79,28 @@ const Post = ({ post }: PostProps) => {
                       variant="h5"
                       component="div"
                     >
-                      {post.title}
+                      {title}
                     </Typography>
                     <Typography
                       align={isMobile ? 'center' : 'left'}
                       variant="subtitle1"
                       color="text.secondary"
                     >
-                      By: {post.by}
+                      By: {by}
                     </Typography>
                     <Typography
                       align={isMobile ? 'center' : 'left'}
                       variant="body2"
                       paddingRight={'10px'}
                     >
-                      {post.text ?? <a href={post.url}>Original page</a>}
+                      {text ?? <a href={url}>Original page</a>}
                     </Typography>
                     <Typography
                       align={isMobile ? 'center' : 'left'}
                       variant="subtitle2"
                       color="text.secondary"
                     >
-                      {new Date(post.time * 1000).toDateString()}
+                      {new Date(time * 1000).toDateString()}
                     </Typography>
                   </Stack>
 
@@ -116,9 +114,9 @@ const Post = ({ post }: PostProps) => {
                       direction="row"
                       justifyContent={isMobile ? 'center' : 'flex-start'}
                     >
-                      <Chip label={`Type: ${post.type}`} variant="outlined" />
+                      <Chip label={`Type: ${type}`} variant="outlined" />
                       <Chip
-                        label={`Comments: ${post.descendants}`}
+                        label={`Comments: ${descendants}`}
                         variant="outlined"
                         onClick={expandComments}
                       />
@@ -133,7 +131,7 @@ const Post = ({ post }: PostProps) => {
                     </Stack>
                     <Rating
                       name="read-only"
-                      value={post.score / 20}
+                      value={score / 20}
                       readOnly
                       max={5}
                     />
@@ -155,11 +153,7 @@ const Post = ({ post }: PostProps) => {
           >
             Comments
           </Typography>
-          <CustomTreeView
-            id={post.id.toString()}
-            title={post.title}
-            kids={comments}
-          />
+          <CustomTreeView id={id.toString()} title={title} kids={comments} />
           <CommentForm />
         </Grid>
       )}
