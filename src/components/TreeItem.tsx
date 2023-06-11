@@ -23,7 +23,9 @@ export const TreeItem: React.FC<TreeItemProps> = ({
   label,
   kids,
 }) => {
-  const [comments, setComments] = useState<CommentsLevel | undefined>(kids)
+  const [comments, setComments] = useState<Array<Item>>(
+    kids ? Object.values(kids) : [],
+  )
   const { updatePasteComment, expandedTreeItems, selectedTreeItems } =
     useCustomContext()
 
@@ -31,14 +33,14 @@ export const TreeItem: React.FC<TreeItemProps> = ({
     event.preventDefault()
     event.stopPropagation()
     updatePasteComment?.((comment: Item) => {
-      setComments({ ...comments, [comment.id]: comment })
+      setComments((prevComments) => [...prevComments, comment])
     })
   }
 
   return (
     <MuiTreeItem
-      expandIcon={comments ? <ExpandMoreIcon /> : <></>}
-      collapseIcon={comments ? <ChevronRightIcon /> : <></>}
+      expandIcon={comments.length ? <ExpandMoreIcon /> : <></>}
+      collapseIcon={comments.length ? <ChevronRightIcon /> : <></>}
       label={
         <Comment
           by={by}
@@ -57,25 +59,25 @@ export const TreeItem: React.FC<TreeItemProps> = ({
       }}
     >
       {/* optimization for not rendering whole tree at initial start when it is not expanded */}
-      {!!comments &&
-        Object.entries<Item>(comments)
+      {!!comments.length &&
+        comments
           .slice(0, 1)
-          .map(([id, { text, kids, by, time }]) => (
+          .map(({ text, kids, by, time, id }) => (
             <TreeItem
-              nodeId={id}
+              nodeId={id.toString()}
               label={text}
               kids={kids as CommentsLevel}
               by={by}
               time={time}
             />
           ))}
-      {!!comments &&
+      {!!comments.length &&
         expandedTreeItems?.includes(nodeId) &&
-        Object.entries<Item>(comments)
+        comments
           .slice(1)
-          .map(([id, { text, kids, by, time }]) => (
+          .map(({ text, kids, by, time, id }) => (
             <TreeItem
-              nodeId={id}
+              nodeId={id.toString()}
               label={text}
               kids={kids as CommentsLevel}
               by={by}

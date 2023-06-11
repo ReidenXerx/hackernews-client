@@ -2,24 +2,27 @@ import React, { createContext, useState } from 'react'
 import { Item } from './types'
 
 export interface ContextType {
-  expandedTreeItems?: Array<string>
+  expandedTreeItems: Array<string>
   updateExpandedTreeItems?: (expandedTreeItems: Array<string>) => void
-  selectedTreeItems?: Array<string>
+  selectedTreeItems: Array<string>
   updateSelectedTreeItems?: (selectedTreeItems: Array<string>) => void
   pasteComment?: { callback: (comment: Item) => void }
   updatePasteComment?: (callback: (comment: Item) => void) => void
+  clearPasteComment?: () => void
 }
 
-// Custom context provider component
 type MyContextProviderProps = {
   children: React.ReactNode
 }
 
-// Create the context
-export const CustomContext = createContext<ContextType>({})
+export const CustomContext = createContext<ContextType>({
+  expandedTreeItems: [],
+  selectedTreeItems: [],
+})
 
-// Custom context provider component
-const MyContextProvider: React.FC<MyContextProviderProps> = ({ children }) => {
+const CustomContextProvider: React.FC<MyContextProviderProps> = ({
+  children,
+}) => {
   const [expandedTreeItems, setExpandedTreeItems] = useState<Array<string>>([])
   const [selectedTreeItems, setSelectedTreeItems] = useState<Array<string>>([])
   const [pasteComment, setPasteComment] = useState<{
@@ -38,6 +41,10 @@ const MyContextProvider: React.FC<MyContextProviderProps> = ({ children }) => {
     setPasteComment({ callback: pasteComment })
   }
 
+  const clearPasteComment = () => {
+    setPasteComment(undefined)
+  }
+
   const contextValue = {
     expandedTreeItems,
     selectedTreeItems,
@@ -45,6 +52,7 @@ const MyContextProvider: React.FC<MyContextProviderProps> = ({ children }) => {
     updateExpandedTreeItems,
     updateSelectedTreeItems,
     updatePasteComment,
+    clearPasteComment,
   }
 
   return (
@@ -54,4 +62,4 @@ const MyContextProvider: React.FC<MyContextProviderProps> = ({ children }) => {
   )
 }
 
-export default MyContextProvider
+export default CustomContextProvider

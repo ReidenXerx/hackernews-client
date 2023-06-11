@@ -5,7 +5,7 @@ import { ItemTypes } from '../constants'
 
 const CommentForm: React.FC = () => {
   const [comment, setComment] = useState('')
-  const { pasteComment } = useCustomContext()
+  const { pasteComment, clearPasteComment } = useCustomContext()
 
   const handleCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setComment(event.target.value)
@@ -24,6 +24,7 @@ const CommentForm: React.FC = () => {
       type: ItemTypes.comment,
     })
     setComment('')
+    clearPasteComment?.()
   }
 
   return (
@@ -36,8 +37,13 @@ const CommentForm: React.FC = () => {
         variant="outlined"
         margin="normal"
         color="success"
+        disabled={!pasteComment}
       />
-      <Button variant="contained" onClick={handleSendComment}>
+      <Button
+        disabled={!pasteComment}
+        variant="contained"
+        onClick={handleSendComment}
+      >
         Send
       </Button>
     </div>
