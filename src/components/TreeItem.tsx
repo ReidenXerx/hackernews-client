@@ -11,7 +11,6 @@ type TreeItemProps = {
   nodeId: string
   label: string
   kids: CommentsLevel
-  onContextMenu?: (event: Event) => void
   by?: string
   time?: number
 }
