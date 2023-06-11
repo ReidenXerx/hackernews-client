@@ -6,8 +6,8 @@ Also there is interactive element with comments. When we click on it comments wi
 <img width="1101" alt="image" src="https://github.com/ReidenXerx/hackernews-client/assets/34869259/23395d83-3e8a-49f1-9e73-f74e5c60f8aa">
 
 Here you can see comments section. There is tree based structure which shows all comments in hierarchical view. Under comments tree you can see comment form for sending your comments (only locally because there is no comment sending API )
-<img width="1167" alt="image" src="https://github.com/ReidenXerx/hackernews-client/assets/34869259/506eecf9-321f-4db6-9cf9-6e2d8479378e">
-You should perform mouse right click on particular comment for change it for replying. After then you need input comment text.
+<img width="1140" alt="image" src="https://github.com/ReidenXerx/hackernews-client/assets/34869259/6973dafa-2ce1-4506-baed-38e5d3970b2c">
+You should perform mouse click on particular comment's reply button for change it for replying. After then you need input comment text.
 
 # Used approaches
 In this section will be described only interesting approaches so i mean it will not standard common approaches.
