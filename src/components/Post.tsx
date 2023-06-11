@@ -18,6 +18,7 @@ import CustomTreeView from './TreeView'
 import { useEffect, useState } from 'react'
 import { getCommentTree } from '../services/hackerNewsHighLevelRequests'
 import CommentForm from './CommentForm'
+import { getItemById } from '../services/hackerNewsLowLevelRequests'
 
 type PostProps = {
   post: Item
@@ -29,12 +30,22 @@ const Post = ({ post }: PostProps) => {
   const [comments, setComments] = useState<CommentsLevel>()
   const [isCommentsLoading, setIsCommentsLoading] = useState<boolean>(false)
 
-  const expandComments = async () => {
+  // useless event providing is required by react pattern callback syntax
+  const expandComments = async (
+    _event?: React.MouseEvent<HTMLDivElement>,
+    explicityKids?: Array<number>,
+  ) => {
     setIsCommentsLoading(true)
-    !comments &&
-      setComments(
-        (await getCommentTree(post.kids as Array<number>)) as CommentsLevel,
-      )
+    setComments(
+      (await getCommentTree(
+        explicityKids ?? (post.kids as Array<number>),
+      )) as CommentsLevel,
+    )
+  }
+
+  const refetchComments = async () => {
+    const refetchedPost = await getItemById(post.id)
+    expandComments(undefined, refetchedPost.kids as Array<number>)
   }
 
   useEffect(() => {
@@ -98,7 +109,7 @@ const Post = ({ post }: PostProps) => {
                   <Stack
                     direction="row"
                     justifyContent="space-between"
-                    marginY={isMobile ? '20px' : '0px'}
+                    marginTop={'20px'}
                   >
                     <Stack
                       spacing={2}
@@ -111,6 +122,13 @@ const Post = ({ post }: PostProps) => {
                         variant="outlined"
                         onClick={expandComments}
                       />
+                      {comments && (
+                        <Chip
+                          label={`Refetch comments`}
+                          variant="outlined"
+                          onClick={refetchComments}
+                        />
+                      )}
                       {isCommentsLoading && <CircularProgress size={30} />}
                     </Stack>
                     <Rating

@@ -12,9 +12,17 @@ type TreeItemProps = {
   label: string
   kids: CommentsLevel
   onContextMenu?: (event: Event) => void
+  by: string
+  time: number
 }
 
-export const TreeItem: React.FC<TreeItemProps> = ({ nodeId, label, kids }) => {
+export const TreeItem: React.FC<TreeItemProps> = ({
+  nodeId,
+  by,
+  time,
+  label,
+  kids,
+}) => {
   const [comments, setComments] = useState<CommentsLevel | undefined>(kids)
   const { updatePasteComment, expandedTreeItems } = useCustomContext()
 
@@ -35,6 +43,17 @@ export const TreeItem: React.FC<TreeItemProps> = ({ nodeId, label, kids }) => {
           variant="body2"
           align="left"
         >
+          {time && (
+            <Typography variant="caption">
+              {new Date(time * 1000).toDateString()}
+            </Typography>
+          )}
+          {by && (
+            <Typography variant="body2" fontWeight={800}>
+              {' '}
+              {by}:
+            </Typography>
+          )}
           {label}
         </Typography>
       }
@@ -55,6 +74,8 @@ export const TreeItem: React.FC<TreeItemProps> = ({ nodeId, label, kids }) => {
               nodeId={id}
               label={comment.text}
               kids={comment.kids as CommentsLevel}
+              by={comment.by}
+              time={comment.time}
             />
           ))}
       {!!comments &&
@@ -66,6 +87,8 @@ export const TreeItem: React.FC<TreeItemProps> = ({ nodeId, label, kids }) => {
               nodeId={id}
               label={comment.text}
               kids={comment.kids as CommentsLevel}
+              by={comment.by}
+              time={comment.time}
             />
           ))}
     </MuiTreeItem>
