@@ -1,6 +1,6 @@
 # User quide 
 There is example for post 
-<img width="1032" alt="image" src="https://github.com/ReidenXerx/hackernews-client/assets/34869259/4707c78c-c88e-48a0-b2b9-0d710767bede">
+<img width="1044" alt="image" src="https://github.com/ReidenXerx/hackernews-client/assets/34869259/fdefb395-b5ce-41b2-85c5-3e784e0a9754">
 here you can see title information, link on the origin news, rank information which shows in star based structure, date when this post was released, type of this post
 Also there is interactive element with comments. When we click on it comments will be appear in the **Comments** section below.
 <img width="1101" alt="image" src="https://github.com/ReidenXerx/hackernews-client/assets/34869259/23395d83-3e8a-49f1-9e73-f74e5c60f8aa">
