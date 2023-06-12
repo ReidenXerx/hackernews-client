@@ -6,6 +6,8 @@ import { CustomContext } from '../Context'
 jest.mock('../hooks/useCustomContext', () => ({
   useCustomContext: () => ({
     pasteComment: { callback: jest.fn() },
+    expandedTreeItems: [],
+    selectedTreeItems: [],
   }),
 }))
 
@@ -15,6 +17,8 @@ describe('CommentForm', () => {
       <CustomContext.Provider
         value={{
           pasteComment: { callback: jest.fn() },
+          expandedTreeItems: [],
+          selectedTreeItems: [],
         }}
       >
         <CommentForm />

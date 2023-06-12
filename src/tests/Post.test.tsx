@@ -35,6 +35,10 @@ const mockComments: CommentsLevel = {
   },
 }
 
+jest.mock('../assets/gung.jpg', () => ({
+  default: 'test-image-path.jpg',
+}))
+
 beforeEach(() => {
   jest
     .spyOn(hackerNewsHighLevelRequests, 'getCommentTree')
