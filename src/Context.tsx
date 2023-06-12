@@ -7,6 +7,7 @@ export interface ContextType {
   selectedTreeItems: Array<string>
   updateSelectedTreeItems?: (selectedTreeItems: Array<string>) => void
   pasteComment?: { callback: (comment: Item) => void }
+  // bypassing collision with setState callback in updatePasteComment
   updatePasteComment?: (callback: (comment: Item) => void) => void
   clearPasteComment?: () => void
 }
