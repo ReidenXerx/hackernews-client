@@ -60,19 +60,6 @@ export const TreeItem: React.FC<TreeItemProps> = ({
       {/* optimization for not rendering whole tree at initial start when it is not expanded */}
       {!!comments.length &&
         comments
-          .slice(0, 1)
-          .map(({ text, kids, by, time, id }) => (
-            <TreeItem
-              nodeId={id.toString()}
-              label={text}
-              kids={kids as CommentsLevel}
-              by={by}
-              time={time}
-            />
-          ))}
-      {!!comments.length &&
-        expandedTreeItems?.includes(nodeId) &&
-        comments
           .slice(1)
           .map(({ text, kids, by, time, id }) => (
             <TreeItem
