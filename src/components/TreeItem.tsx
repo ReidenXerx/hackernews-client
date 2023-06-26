@@ -25,8 +25,7 @@ export const TreeItem: React.FC<TreeItemProps> = ({
   const [comments, setComments] = useState<Array<Item>>(
     kids ? Object.values(kids) : [],
   )
-  const { updatePasteComment, expandedTreeItems, selectedTreeItems } =
-    useCustomContext()
+  const { updatePasteComment, selectedTreeItems } = useCustomContext()
 
   const onClickReply = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()

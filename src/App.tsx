@@ -9,7 +9,7 @@ import { Item } from './types'
 import Post from './components/Post'
 import Context from './Context'
 function App() {
-  const [posts, setPosts] = useState(Array<Item>)
+  const [posts, setPosts] = useState<Array<Item>>([])
 
   useAsyncEffect(async () => {
     console.log()
